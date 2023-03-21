@@ -1,8 +1,9 @@
 # IP头定义
 from ctypes import *
+import socket
+import struct
 
-
-class IP(Structure):
+class IpEntity(Structure):
     _fields_ = [
         ('ihl', c_ubyte, 4),
         ('version', c_ubyte, 4),
