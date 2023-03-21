@@ -10,7 +10,7 @@ def get_adapter_name():
     for name in tem:
         a= name.strip().split('     ')
         if len(a)>3:
-            adapterName.append(a[1])
+            adapterName.append(a[1].strip(' '))
     del(adapterName[0])
     # print(adapterName)
     return adapterName
