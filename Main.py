@@ -4,11 +4,15 @@ from tkinter import messagebox
 from io import StringIO
 from contextlib import redirect_stdout
 
+
+
+
 from windows import adapterInformation
 from windows import helpWindwos
 from windows import zhuizong
 #捕获的数据包的结果会写在下面这个列表中
 from util import getAdapterName
+
 
 my_packages = []
 
@@ -32,6 +36,7 @@ def start():
         my_packages.append(packages[i])
 
 
+
 def showDetail():
     #获取想要具体查询的包序号
     var3 = packageNum.get()
@@ -45,7 +50,7 @@ def showDetail():
     t1.pack(side='top')
     scrollbar.config(command=t1.yview)
     try:
-        # 将my_packages[eval(var3)-1].show()重定向到变量packageDetail中
+
         output_str = StringIO()
         with redirect_stdout(output_str):
             my_packages[eval(var3)-1].show()
@@ -57,10 +62,16 @@ def showDetail():
 
 
 
+
+
+
+
+
 # 创建tkinter主窗口
 window = tk.Tk()
 window.title('PyWireshark')
 window.geometry('1024x720')
+
 
 tip1 = tk.Label(window, text='网卡名称：')   # 创建一个标签
 tip1.place(x=50, y=45)                    # 确定标签位置
