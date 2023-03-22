@@ -4,8 +4,7 @@ from tkinter import messagebox
 from io import StringIO
 from contextlib import redirect_stdout
 
-
-
+from scapy.arch.common import compile_filter
 
 from windows import adapterInformation
 from windows import helpWindwos
@@ -27,12 +26,17 @@ def start():
         tk.messagebox.showerror(title='错误', message='抓包数量必须为整数！')
         return
     try:
-        packages = sniff(iface=var1, count=eval(var2))
+        compile_filter(BPF_Filter.get())
+    except:
+        tk.messagebox.showerror(title='错误', message='BPF表达式不正确！')
+
+    try:
+        packages = sniff(iface=var1, count=eval(var2), filter=BPF_Filter.get())
     except:
         tk.messagebox.showerror(title='错误', message='网卡不存在')
         return
     for i in range(eval(var2)):
-        t.insert("end", "序号：{}   {}\n".format(i+1,packages[i].summary()))
+        t.insert("end", "序号：{}\t{}\n".format(i+1,packages[i].summary()))
         my_packages.append(packages[i])
 
 
