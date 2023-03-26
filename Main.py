@@ -1,5 +1,4 @@
-import time
-from PySide6 import QtCore
+
 from queue import Queue
 from tkinter import *
 from tkinter.messagebox import showinfo
@@ -7,7 +6,7 @@ from scapy.all import IP
 from scapy.all import TCP
 from scapy.all import *
 import tkinter as tk
-from tkinter import messagebox
+
 from io import StringIO
 from contextlib import redirect_stdout
 
@@ -16,7 +15,7 @@ from scapy.arch.common import compile_filter
 from util.sniff import get_packet_layers
 from windows import adapterInformation
 from windows import helpWindwos
-from windows import zhuizong
+
 # 捕获的数据包的结果会写在下面这个列表中
 from util import getAdapterName
 
@@ -58,7 +57,7 @@ def end():
     try:
         sniffer.stop()
         b_1 = tk.Button(window, text='开始抓包', width=15, height=1, command=start).place(x=50, y=5)
-        cnt=0
+        cnt=1
         while(queue.qsize()>0):
             packet = queue.get(False)
 
@@ -69,15 +68,15 @@ def end():
             else:
                 src = packet.src
                 dst = packet.dst
-            print(src)
-            print(dst)
+
+
             layer = None
             for var in get_packet_layers(packet):
                 if not isinstance(var, (Padding, Raw)):
                     layer = var
 
             protocol = layer.name
-            print(protocol)
+
             no=str(cnt)+(8-len(str(cnt)))*2*" "
             src=str(src)+(30-len(str(src)))*2*" "
             dst=str(dst)+(30-len(str(dst)))*2*" "
@@ -94,9 +93,9 @@ def list_select(evt):
     cur = listbox1.curselection()[0]
     if cur is None:
         return
-    # print(cur)
+
     # 获取想要具体查询的包序号
-    var3 = int(cur + 1)
+    var3 = int(cur)+1
     global detialWindow
     # 创建第二个窗口
 
@@ -129,9 +128,9 @@ def  follow_stream():
         cur = listbox2.curselection()[0]
         if cur is None:
             return
-        # print(cur)
+
         # 获取想要具体查询的包序号
-        var3 = int(cur + 1)
+        var3 = int(cur  )+1
         global detialWindow
         # 创建第二个窗口
 
@@ -160,7 +159,7 @@ def  follow_stream():
     if cur is None:
         return
     var3 = int(cur + 1)
-    print(var3)
+
     global detialWindow
     # 创建第二个窗口
     detialWindow = tk.Tk()
@@ -170,7 +169,7 @@ def  follow_stream():
     listbox2 = tk.Listbox(detialWindow, width=130, height=55, yscrollcommand=yscrollbar.set, xscrollcommand=xscrollbar.set)
     listbox2.bind("<<ListboxSelect>>", list_follow)
     listbox2.pack(side="bottom", fill="x")
-    cnt=0
+    cnt=1
     packetD=my_packages[var3]
     if IP in packetD:
         srcD = packetD[IP].src
@@ -186,7 +185,7 @@ def  follow_stream():
         else:
             src = packet.src
             dst = packet.dst
-        print(srcD+" "+dstD)
+
         if srcD == src and dstD==dst:
             if TCP in packetD and TCP in packet:
                 if packetD[TCP].sport==packet[TCP].sport:
@@ -202,7 +201,7 @@ def  follow_stream():
                 layer = var
 
         protocol = layer.name
-        print(protocol)
+
         no=str(cnt)+(8-len(str(cnt)))*2*" "
         src=str(src)+(30-len(str(src)))*2*" "
         dst=str(dst)+(30-len(str(dst)))*2*" "
@@ -217,7 +216,7 @@ def  follow_stream():
 window = tk.Tk()
 window.title('PyWireshark')
 window.geometry('1024x720')
-
+window.iconphoto(False, tk.PhotoImage(file='logo.png'))
 
 tip1 = tk.Label(window, text='网卡选择：')   # 创建一个标签
 tip1.place(x=50, y=45)                    # 确定标签位置
